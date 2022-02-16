@@ -13,10 +13,10 @@ For more information, see our paper: [arXiv paper](https://arxiv.org/abs/2112.11
 ## Chordified JSB Chorales Dataset
 
 Since the original JSB Chorales Dataset has no chord progressions and the workload of carrying out harmonic analysis manually is too large, we perform the following automated pre-processing to add chord symbols.  
-
-1. Flattening: all repeat barlines are removed by flattening each score to make them more machine-readable.  
-2. Chordify: a tool in music21 for simplifying a complex score with multiple parts into a succession of chords in one part.  
-3. Labelling: we first move all the chords to the closed position, and then label the chordified chords as chord symbols. Finally, all chord symbols on strong beats of the soprano part are kept.  
+  
+1.　Flattening: all repeat barlines are removed by flattening each score to make them more machine-readable.  
+2.　Chordify: a tool in music21 for simplifying a complex score with multiple parts into a succession of chords in one part. 
+3.　Labelling: we first move all the chords to the closed position, and then label the chordified chords as chord symbols. Finally, all chord symbols on strong beats of the soprano part are kept.  
 
 After removing a few scores that cannot be properly chordified, we ended up with a total of 366 chorales for training (90\%) and validation (10\%).  
 
