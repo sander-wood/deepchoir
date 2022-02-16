@@ -36,7 +36,9 @@ PS: Third party libraries can be installed using the `pip install` command.
 2.　Simply run `choralizer.py`;  
 3.　Wait a while and the choralized melodies will be saved in the `outputs` folder.  
   
-You can set two parameters HARMONICITY∈(0, 1) and POLYPHONICITY∈(0, 1) in `config.py` to adjust two attributes of the generated chorales. The higher the value of HARMONICITY, the generated three parts are more in harmony with the melody. While the higher the value of POLYPHONICITY, the more independent the rhythm of the generated three parts and the melody.
+You can set two parameters HARMONICITY∈(0, 1) and POLYPHONICITY∈(0, 1) in `config.py` to adjust two attributes of the generated chorales.  
+The higher the value of HARMONICITY, the generated three parts are more in harmony with the melody.  
+The higher the value of POLYPHONICITY, the more independent the rhythm of the generated three parts and the melody.  
 
 ## Use Your Own Dataset
 1.　Store all the chorales with chord symbols in the `dataset` folder;  
