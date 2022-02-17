@@ -1,0 +1,4 @@
+theme: jekyll-theme-minimal
+title: DeepChoir
+description: Chord_Conditioned_Melody_Choralization_with_Controllable_Harmonicity_and_Polyphonicity
+markdown: kramdown
