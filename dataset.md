@@ -20,12 +20,12 @@ Since the original JSB Chorales Dataset has no chord progressions and the worklo
 2.　**Chordify**: a tool in [music21](https://web.mit.edu/music21/doc/usersGuide/usersGuide_09_chordify.html?highlight=chordify) for simplifying a complex score with multiple parts into a succession of chords in one part.  
 3.　**Labelling**: we first move all the chords to the closed position, and then label the chordified chords as chord symbols. Finally, all chord symbols on strong beats of the soprano part are kept.  
 
-After removing a few scores that cannot be properly chordified, we ended up with a total of 366 chorales for training (90\%) and validation (10\%).  
+After removing a few scores that cannot be properly chordified, we ended up with a total of 366 chorales for training (90%) and validation (10%).  
 
 You can find this chordified version of JSB Chorales dataset in [DeepChoir](https://github.com/sander-wood/deepchoir)
 
 <br>
-<center><img src="figs/070.png" alt="p1" style="zoom:75%"></center>
+<center><img src="figs/070.png" alt="p1" style="zoom:100%"></center>
 <br>
 <center>Chordified BWV 322 exported in MuseScore3.</center>
 <br>
