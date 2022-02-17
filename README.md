@@ -4,12 +4,10 @@
 
 This is the source code of DeepChoir, a melody choralization system, which can generate a four-part chorale for a given melody conditioned on a chord progression, trained/validated on Chordified JSB Chorales Dataset.  
   
-The evaluation data we used in our experiments in the `outputs` folder.  
+The evaluation data we used in our experiments in the `outputs` folder, and the musical discrimination test is available at https://sander-wood.github.io/deepchoir/test.  
 
 The generated samples (chorales, folk songs and a symphony) are in the `samples` folder, you can also listening them at https://sander-wood.github.io/deepchoir/samples.  
 
-The musical discrimination test is available at https://sander-wood.github.io/deepchoir/test.  
-  
 For more information, see our paper: [arXiv paper](https://arxiv.org/abs/2112.11122).  
   
 ## Chordified JSB Chorales Dataset
