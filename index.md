@@ -18,7 +18,7 @@ Melody choralization, i.e. generating a four-part chorale based on a user-given 
 <br>
 <center><img src="figs/fig1.png" alt="overall_model"></center>
 <br>
-<center>Figure 1: The overall framework of AutoHarmonizer</center>
+<center>Figure 1: The process of melody choralization. Here the inputs are a melody and a chord progression consisting of chord symbols (i.e. Csus2, F, Am, G7 and C), and the output is a four-part chorale, where alto, tenor and bass are the generated three parts.</center>
 <br>
 
 Our goal is to provide a controllable tool that can generate a chorale or more general, contrapuntal music based on a melody with chords. We propose DeepChoir, a chord-conditioned melody choralization system with controllable harmonicity and polyphonicity. Our music representation uses MIDI pitch to encode notes while chords are represented as chromagrams. We further add fermata and beat information to enable the system to understand the distribution of notes more clearly. Furthermore, we improve the density sampling proposed in [AutoHarmonizer](https://arxiv.org/abs/2112.11122) to achieve controllable harmonicity and polyphonicity in the melody choralization task. With controllable harmonicity, users can intuitively guide the system on how strictly to follow the given chord conditions. On the other hand, as independence in rhythm is a crucial feature of contrapuntal music, with controllable polyphonicity, even systems like DeepChoir that trained on JSB Chorales can generate homophonic music if users prefer it to polyphonic music. 
