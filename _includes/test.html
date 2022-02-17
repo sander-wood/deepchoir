@@ -64,56 +64,6 @@
             </form>
         </div>
 
-        
-        <div style="text-align:center; margin-top:20px">
-            <p id="audio_name_6" style="text-align:left">Song 6</p>
-            <audio id="audio_6" src="audio/outputs-p0.1-h0.9/015.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-            <a id="score_6" href="pdf/outputs-p0.1-h0.9/015.pdf" target="_blank">Score</a>
-            <form id="form_6" style="margin-top:20px">
-                <input type="radio" name="predict" value="val">Human
-                <input type="radio" name="predict" value="outputs">Machine
-            </form>
-        </div>
-        
-        <div style="text-align:center; margin-top:20px">
-            <p id="audio_name_7" style="text-align:left">Song 7</p>
-            <audio id="audio_7" src="audio/outputs-p0.9-h0.9/015.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-            <a id="score_7" href="pdf/outputs-p0.9-h0.9/015.pdf" target="_blank">Score</a>
-            <form id="form_7" style="margin-top:20px">
-                <input type="radio" name="predict" value="val">Human
-                <input type="radio" name="predict" value="outputs">Machine
-            </form>
-        </div>
-
-        <div style="text-align:center; margin-top:20px">
-            <p id="audio_name_8" style="text-align:left">Song 8</p>
-            <audio id="audio_8" src="audio/outputs-p0.5-h0.1/015.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-            <a id="score_8" href="pdf/outputs-p0.5-h0.1/015.pdf" target="_blank">Score</a>
-            <form id="form_8" style="margin-top:20px">
-                <input type="radio" name="predict" value="val">Human
-                <input type="radio" name="predict" value="outputs">Machine
-            </form>
-        </div>
-
-        <div style="text-align:center; margin-top:20px">
-            <p id="audio_name_9" style="text-align:left">Song 9</p>
-            <audio id="audio_9" src="audio/outputs-p0.1-h0.1/015.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-            <a id="score_9" href="pdf/outputs-p0.1-h0.1/015.pdf" target="_blank">Score</a>
-            <form id="form_9" style="margin-top:20px">
-                <input type="radio" name="predict" value="val">Human
-                <input type="radio" name="predict" value="outputs">Machine
-            </form>
-        </div>
-
-        <div style="text-align:center; margin-top:20px">
-            <p id="audio_name_10" style="text-align:left">Song 10</p>
-            <audio id="audio_10" src="audio/outputs-p0.9-h0.1/015.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-            <a id="score_10" href="pdf/outputs-p0.9-h0.1/015.pdf" target="_blank">Score</a>
-            <form id="form_10" style="margin-top:20px">
-                <input type="radio" name="predict" value="val">Human
-                <input type="radio" name="predict" value="outputs">Machine
-            </form>
-        </div>
         <div style="text-align:center; margin-top:20px; margin-bottom:20px" >
             <button onclick="judge();">Submit</button>                
         </div>
@@ -126,19 +76,19 @@
     function show()
     {
         document.getElementById("test_part").removeAttribute("hidden");
-        for (var i=1; i<=10; i++)
+        for (var i=1; i<=5; i++)
         {
             var form_id = "form_" + i.toString();
             document.getElementById(form_id)[0].checked=false;
             document.getElementById(form_id)[1].checked=false;
         }
         var x = 0; // Avoid all 0 or all 1 situations
-        for (var i=1; i<=10; i++)
+        for (var i=1; i<=5; i++)
         {
             var audio_num = audio_names.length;
             var r1 = Math.round(Math.random()); // 0 or 1
             x += r1;
-            if (i == 10 && (x == 0 || x == 10)) r1 = 1 - r1;
+            if (i == 5 && (x == 0 || x == 5)) r1 = 1 - r1;
             var audio_path = "audio/"
             var pdf_path = "pdf/"
             var option = document.getElementById("options").value;
@@ -169,18 +119,18 @@
     {
         var ans = new Array();
         var acc = 0
-        for (var i=1; i<=10; i++)
+        for (var i=1; i<=5; i++)
         {
             var audio_id = "audio_" + i.toString();
             var form_id = "form_" + i.toString();
             var src = document.getElementById(audio_id).src;
             if (src.match("ground_truth")) ans[i] = "val";
             else ans[i] = "outputs";
-            if (document.getElementById(form_id).predict.value == ans[i]) acc += 10;
+            if (document.getElementById(form_id).predict.value == ans[i]) acc += 20;
         }
         var show_str = "Your accuracy: " + acc.toString() + "%\n";
         show_str += "The right answers are\n";
-        for (var i=1; i<=10; i++)
+        for (var i=1; i<=5; i++)
         {
             if (ans[i] == "val") show_str += "Song " + i.toString() + ": " + "Human" + "\n";
             else show_str += "Song " + i.toString() + ": " + "Machine" + "\n";
