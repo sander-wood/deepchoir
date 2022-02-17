@@ -22,7 +22,7 @@ Since the original JSB Chorales Dataset has no chord progressions and the worklo
 
 After removing a few scores that cannot be properly chordified, we ended up with a total of 366 chorales for training (90\%) and validation (10\%).  
 
-You can find this chordified version of JSB Chorales dataset in the `dataset` folder. 
+You can find this chordified version of JSB Chorales dataset in [DeepChoir](https://github.com/sander-wood/deepchoir)
 
 <br>
 <center><img src="figs/070-1.png" alt="p1" style="zoom:50%"><img src="figs/070-2.png" alt="p2" style="zoom:50%"></center>
