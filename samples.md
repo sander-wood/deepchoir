@@ -13,7 +13,7 @@ Like most melody choralization systems trained on JSB Chorales, DeepChoir can re
 <br>
 
 # Famous Tune
-To give you a better understanding of what DeepChoir is capable of, we further rechoralized a famous melody, **Twinkle Twinkle Little Star**. We manually harmonized this melody to a Baroque style chord progression, generated using a setting of harmonicity=0.4 and polyphonicity=0.6.
+To give you a better understanding of what DeepChoir is capable of, we further rechoralized a famous melody, **Twinkle Twinkle Little Star**. We manually harmonized this melody to a Baroque style chord progression, then choralizing it with a setting of harmonicity=0.4 and polyphonicity=0.6.
 
 <br>
 <audio id="audio_2" src="samples/famous_tune/little star-h0.4-p0.6.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
