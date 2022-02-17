@@ -23,10 +23,10 @@ After removing a few scores that cannot be properly chordified, we ended up with
 You can find this chordified version of JSB Chorales dataset in the `dataset` folder. 
 
 <div align="center">
-  <img src=https://github.com/sander-wood/deepchoir/blob/homepage/figs/001-1.png width=35% />
-  <img src=https://github.com/sander-wood/deepchoir/blob/homepage/figs/001-2.png width=35% />
+  <img src=https://github.com/sander-wood/deepchoir/blob/homepage/figs/070-1.png width=35% />
+  <img src=https://github.com/sander-wood/deepchoir/blob/homepage/figs/070-2.png width=35% />
     
-  Chordified BWV 269 exported in MuseScore3
+  Chordified BWV 322 exported in MuseScore3
 </div>
 
 ## Install Dependencies
