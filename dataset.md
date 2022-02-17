@@ -24,9 +24,8 @@ After removing a few scores that cannot be properly chordified, we ended up with
 
 You can find this chordified version of JSB Chorales dataset in the `dataset` folder. 
 
-<div align="center">
-  <img src=https://github.com/sander-wood/deepchoir/blob/homepage/figs/070-1.png width=35% />
-  <img src=https://github.com/sander-wood/deepchoir/blob/homepage/figs/070-2.png width=35% />
-    
-  Chordified BWV 322 exported in MuseScore3
-</div>
+<br>
+<center><img src="figs/070-1.png" alt="p1" style="zoom:50%"><img src="figs/070-2.png" alt="p2" style="zoom:50%"></center>
+<br>
+<center>Chordified BWV 322 exported in MuseScore3.</center>
+<br>
