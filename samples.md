@@ -21,7 +21,7 @@ To give you a better understanding of what DeepChoir is capable of, we further r
 <br>
 
 # Folk Song
-With chord conditioning and the improved density sampling, DeepChoir is capable of generating music that is different from the typical Bach style. The melody and chord progressions below are taken from the **ashover1** (A and A's Waltz) which is the first piece on the [Nottingham Lead Sheet Dataset](https://github.com/sander-wood/autoharmonizer). To demonstrate the improved density sampling capabilities, two different configurations of DeepChoir are used for its choralization.
+With chord conditioning and the improved density sampling, DeepChoir is capable of generating music that is different from the typical Bach style. The melody and chord progressions below are taken from the **ashover1** (A and A's Waltz) which is the first British folk song on the [Nottingham Lead Sheet Dataset](https://github.com/sander-wood/autoharmonizer). To demonstrate the improved density sampling capabilities, two different configurations of DeepChoir are used for its choralization.
 
 <br>
 <audio id="audio_3" src="samples/folk_song/ashover1-h0.7-p0.6.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
