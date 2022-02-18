@@ -8,7 +8,7 @@ The evaluation data we used in our experiments in the `outputs` folder, and the 
 
 The generated samples (chorales, folk songs and a symphony) are in the `samples` folder, you can also listening them at https://sander-wood.github.io/deepchoir/samples.  
 
-For more information, see our paper: [arXiv paper](https://arxiv.org/abs/2112.11122).  
+For more information, see our paper: [arXiv paper](https://arxiv.org/abs/2202.08423).  
   
 ## Chordified JSB Chorales Dataset
 
