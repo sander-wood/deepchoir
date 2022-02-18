@@ -9,7 +9,7 @@ Like most melody choralization systems trained on JSB Chorales, DeepChoir can re
 
 <br>
 <audio id="audio_1" src="samples/bach_chorale/088-h0.5-p0.5.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center><a id="score_1" href="samples/bach_chorale/088-h0.5-p0.5.pdf" target="_blank">Score of Helft mir Gotts Güte preisen</a></center>
+<center><a id="score_1" href="samples/bach_chorale/088-h0.5-p0.5.pdf" target="_blank">Click to view the Score of Helft mir Gotts Güte preisen</a></center>
 <br>
 
 # Famous Tune
@@ -17,7 +17,7 @@ To give you a better understanding of what DeepChoir is capable of, we further r
 
 <br>
 <audio id="audio_2" src="samples/famous_tune/little star-h0.4-p0.6.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center><a id="score_2" href="samples/famous_tune/little star-h0.4-p0.6.pdf" target="_blank">Score of Twinkle Twinkle Little Star</a></center>
+<center><a id="score_2" href="samples/famous_tune/little star-h0.4-p0.6.pdf" target="_blank">Click to view the Score of Twinkle Twinkle Little Star</a></center>
 <br>
 
 # Folk Song
@@ -25,11 +25,11 @@ With chord conditioning and the improved density sampling, DeepChoir is capable 
 
 <br>
 <audio id="audio_3" src="samples/folk_song/ashover1-h0.7-p0.6.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center><a id="score_3" href="samples/folk_song/ashover1-h0.7-p0.6.pdf" target="_blank">Score of A and A's Waltz (harmonicity=0.7, polyphonicity=0.6)</a></center>
+<center><a id="score_3" href="samples/folk_song/ashover1-h0.7-p0.6.pdf" target="_blank">Click to view the Score of A and A's Waltz (harmonicity=0.7, polyphonicity=0.6)</a></center>
 <br>
 
 <audio id="audio_4" src="samples/folk_song/ashover1-h1-p0.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center><a id="score_4" href="samples/folk_song/ashover1-h1-p0.pdf" target="_blank">Score of A and A's Waltz (harmonicity=1, polyphonicity=0)</a></center>
+<center><a id="score_4" href="samples/folk_song/ashover1-h1-p0.pdf" target="_blank">Click to view the Score of A and A's Waltz (harmonicity=1, polyphonicity=0)</a></center>
 <br>
 
 # Symphony
@@ -40,7 +40,7 @@ This music is created as follows. We first chordify the piano accompaniment part
 
 <br>
 <audio id="audio_5" src="samples/symphony/AI Maria.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center><a id="score_5" href="samples/symphony/AI Maria.pdf" target="_blank">Score of AI Maria</a></center>
+<center><a id="score_5" href="samples/symphony/AI Maria.pdf" target="_blank">Click to view the Score of AI Maria</a></center>
 <br>
 
   
