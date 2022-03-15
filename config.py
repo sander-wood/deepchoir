@@ -17,7 +17,7 @@ NUM_LAYERS = 2
 BATCH_SIZE = 512
 EPOCHS = 10
 
-# 'harmonizor.py'
+# 'choralizer.py'
 HARMONICITY = 0.5
 POLYPHONICITY = 0.5
 WATER_MARK = True
