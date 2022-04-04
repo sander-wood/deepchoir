@@ -18,18 +18,25 @@ To give you a better understanding of what DeepChoir is capable of, we further r
 <br>
 <audio id="audio_2" src="samples/famous_tune/little star-h0.4-p0.6.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
 <center><a id="score_2" href="samples/famous_tune/little star-h0.4-p0.6.pdf" target="_blank">Click to view the Score of Twinkle Twinkle Little Star</a></center>
+<br>  
+
+Think the above example is too short? The choralized tune given below (harmonicity=0.9, polyphonicity=0.2) is from the world-famous and much-loved game series Mario Bros. Of the six tracks of the Super Mario Bros. soundtrack, this **Overworld Theme** took the most time to develop, according to its composer Koji Kondo. If you listen carefully, you will notice that the chords in bars 15 and 31 are A♭, but DeepChoir gives a B (out of chord) on the strong beat of Tenor part. This also shows where DeepChoir's limitations lie, but overall it is still exciting to achieve such results on modern jazz style music, considering that the system was trained on a Baroque period dataset.  
+
 <br>
+<audio id="audio_3" src="samples/famous_tune/mario-h0.9-p-0.2.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
+<center><a id="score_3" href="samples/famous_tune/mario-h0.9-p-0.2.pdf" target="_blank">Click to view the Score of Super Mario Bros. Overworld Theme</a></center>
+<br>  
 
 # Folk Song
 With chord conditioning and the improved density sampling, DeepChoir is capable of generating music that is different from the typical Bach style. The melody and chord progressions below are taken from the **A and A's Waltz** (ashover1) which is the first British folk song on the [Nottingham Lead Sheet Dataset](https://github.com/sander-wood/autoharmonizer). To demonstrate the improved density sampling capabilities, two different configurations of DeepChoir are used for its choralization.
 
 <br>
-<audio id="audio_3" src="samples/folk_song/ashover1-h0.7-p0.6.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center><a id="score_3" href="samples/folk_song/ashover1-h0.7-p0.6.pdf" target="_blank">Click to view the Score of A and A's Waltz (harmonicity=0.7, polyphonicity=0.6)</a></center>
+<audio id="audio_4" src="samples/folk_song/ashover1-h0.7-p0.6.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
+<center><a id="score_4" href="samples/folk_song/ashover1-h0.7-p0.6.pdf" target="_blank">Click to view the Score of A and A's Waltz (harmonicity=0.7, polyphonicity=0.6)</a></center>
 <br>
 
-<audio id="audio_4" src="samples/folk_song/ashover1-h1-p0.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center><a id="score_4" href="samples/folk_song/ashover1-h1-p0.pdf" target="_blank">Click to view the Score of A and A's Waltz (harmonicity=1, polyphonicity=0)</a></center>
+<audio id="audio_5" src="samples/folk_song/ashover1-h1-p0.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
+<center><a id="score_5" href="samples/folk_song/ashover1-h1-p0.pdf" target="_blank">Click to view the Score of A and A's Waltz (harmonicity=1, polyphonicity=0)</a></center>
 <br>
 
 # Symphony
@@ -41,8 +48,8 @@ This music is created as follows. We first chordify the piano accompaniment part
 **AI Maria** is accepted for inclusion in the ICMA Music Showcase 2022 Asia.
 
 <br>
-<audio id="audio_5" src="samples/symphony/AI Maria.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center><a id="score_5" href="samples/symphony/AI Maria.pdf" target="_blank">Click to view the Score of AI Maria</a></center>
+<audio id="audio_6" src="samples/symphony/AI Maria.mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
+<center><a id="score_6" href="samples/symphony/AI Maria.pdf" target="_blank">Click to view the Score of AI Maria</a></center>
 <br>
 
   
