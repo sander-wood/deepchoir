@@ -239,7 +239,7 @@ def export_music(melody, chorale_list, fermata_txt, gap, filename):
     if WATER_MARK:
         meta = metadata.Metadata()
         meta.title = filename.split('.')[-2]
-        meta.composer = "Choralized with DeepChoir"
+        meta.composer = "Choralized by DeepChoir"
         new_score.insert(0,meta)
         
     new_score.write('mxl', fp=OUTPUTS_PATH+'/'+filename.split('.')[-2]+'.mxl')
