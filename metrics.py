@@ -1,6 +1,5 @@
 import math
 import os
-from xml.dom.minidom import Element
 import loader
 import numpy as np
 from tqdm import trange
@@ -272,35 +271,14 @@ def get_MCTD(melody_list, chord_list):
     return score / cnt
 
 
-def get_VAR(melody_txt, generated_txt):
-
-    new_melody_txt = np.array([max(element-128, 0) for element in melody_txt])
-    new_generated_txt = np.array([max(element-128, 0) for element in generated_txt])
-    var_cnt = 0
-
-    for n_idx in range(len(new_melody_txt)):
-        if new_melody_txt[n_idx]==new_generated_txt[n_idx]:
-            var_cnt += 1
-
-    return var_cnt/len(melody_txt)
-
-
-def get_OAR(melody_txt, generated_txt):
-
-    new_melody_txt = np.array([min(max(129-element, 0),1) for element in melody_txt])
-    new_generated_txt = np.array([min(max(129-element, 0),1) for element in generated_txt])
-    
-    return np.dot(new_melody_txt,new_generated_txt)/np.sum(new_melody_txt)
-
-
 if __name__ == "__main__":
 
     # Initialization
-    all_CTnCTR = all_PCS = all_MCTD = all_VAR = all_OAR = 0
+    all_CTnCTR = all_PCS = all_MCTD = 0
     cnt = 0
     
     # Traverse the path
-    for dirpath, dirlist, filelist in os.walk('gt'):
+    for dirpath, dirlist, filelist in os.walk('outputs-1.0'):
         
         # Traverse the list of files
         for file_idx in trange(len(filelist)):
@@ -338,20 +316,9 @@ if __name__ == "__main__":
             all_MCTD += get_MCTD(alto_list, chord_list)
             all_MCTD += get_MCTD(tenor_list, chord_list)
             all_MCTD += get_MCTD(bass_list, chord_list)
-
-            all_VAR += get_VAR(melody_txt, alto_txt)
-            all_VAR += get_VAR(melody_txt, tenor_txt)
-            all_VAR += get_VAR(melody_txt, bass_txt)
-
-            all_OAR += get_OAR(melody_txt, alto_txt)
-            all_OAR += get_OAR(melody_txt, tenor_txt)
-            all_OAR += get_OAR(melody_txt, bass_txt)
-            
             cnt += 1
 
     # Print the average of each metric
     print('CTnCTR = ', all_CTnCTR/(cnt*3))
     print('PCS = ', all_PCS/(cnt*3))
     print('MCTD = ', all_MCTD/(cnt*3))
-    print('VAR = ', all_VAR/(cnt*3))
-    print('OAR = ', all_OAR/(cnt*3))

@@ -71,11 +71,9 @@ def beat_seq(ts):
     medium = 0 
 
     if (ts.numerator%3)==0:
-
         medium = 3
 
     elif (ts.numerator%2)==0:
-
         medium = 2
 
     for idx in range(len(beat_sequence)):
@@ -101,7 +99,6 @@ def norm_pos(pos):
 
     # If greater than 0
     if extra_pos>0:
-
         pos = pos-extra_pos+0.25
     
     return pos
@@ -147,12 +144,12 @@ def melody2txt(melody_part):
             
             fermata_flag = False
 
-            # '130' for holding
+            # '129' for holding
             note_steps = int(note_duration/0.25)
 
-            # Reads the MIDI pitch of a note (value range 1 to 128)
+            # Reads the MIDI pitch of a note (0~127)
             if isinstance(element, note.Note):
-                melody_txt.append(element.pitch.midi+1)
+                melody_txt.append(element.pitch.midi)
 
                 for f in element.expressions:
                     if isinstance(f, expressions.Fermata):
@@ -160,17 +157,17 @@ def melody2txt(melody_part):
                         fermata_flag = True
                         break
 
-            # '129' for rest
+            # '128' for rest
             elif isinstance(element, note.Rest):
 
                 # Merge adjacent rests
                 if isinstance(pre_ele, note.Rest):
-                    melody_txt.append(130)
+                    melody_txt.append(129)
                 
                 else:
-                    melody_txt.append(129)
+                    melody_txt.append(128)
             
-            melody_txt += [130]*(note_steps-1)
+            melody_txt += [129]*(note_steps-1)
 
             if fermata_flag==False:
                 fermata_txt += [0]*(note_steps)
@@ -206,7 +203,6 @@ def melody2txt(melody_part):
                 missed_beat = int((cur_cnt-pre_cnt)%len(beat_sequence))
 
                 if missed_beat!=0:
-
                     beat_txt += beat_sequence[:missed_beat]
 
             # Update variables
@@ -221,7 +217,6 @@ def melody2txt(melody_part):
     missed_beat = int((cur_cnt-pre_cnt)%len(beat_sequence))
 
     if missed_beat!=0:
-
         beat_txt += beat_sequence[:missed_beat]
 
     return melody_txt, beat_txt, fermata_txt
@@ -232,7 +227,6 @@ def chord2txt(chord_part):
     chord_txt = []
 
     for element in chord_part.flat:
-
         chord_vec = [0.]*12
 
         if isinstance(element, chord.Chord):
@@ -390,10 +384,9 @@ def chorale_loader(path=DATASET_PATH):
                 # Read this music file
                 score = converter.parse(filename)
                 melodies.append(score)
+                filenames.append(this_file)
 
                 if path!='dataset':
-
-                    filenames.append(this_file)
                     scores = key_split(score)
                     scores_len_list.append(len(scores))
 
@@ -451,7 +444,7 @@ def chorale_loader(path=DATASET_PATH):
             
 
     if path=='dataset':
-        return [[soprano_melody, soprano_beat, soprano_fermata, soprano_chord], alto, tenor, bass]
+        return [[soprano_melody, soprano_beat, soprano_fermata, soprano_chord], alto, tenor, bass, filenames]
 
     else:
         return soprano_melody, soprano_beat, soprano_fermata, soprano_chord, melodies, gaps, scores_len_list, filenames

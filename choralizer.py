@@ -1,151 +1,124 @@
-import math
+import os
 import numpy as np
 from config import *
 from music21 import *
+from tqdm import trange
 from model import build_model
 from loader import chorale_loader
+from samplings import gamma_sampling
 from tensorflow.python.keras.utils.np_utils import to_categorical
 
-def sample(prediction, token_list=[], density_list=[]):
+# use cpu
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
+def get_chord_notes(chord_vec):
     
-    modified_list = []
-    frozen_list = []
-    frozen_prob = 0
+    chord_notes = []
 
-    if not isinstance(density_list, list):
-        density_list = [density_list]
-        
-    if len(density_list)==1 or not isinstance(token_list, list):
-        token_list = [token_list]
-
-    for idx, d in enumerate(density_list):
-
-        for token in modified_list:
-            frozen_prob += prediction[token]
-            frozen_list.append(token)
-
-        prob_sum = 0
-        modified_list = []
-
-        try:
-            for token in token_list[idx]:
-                prob_sum += prediction[token]
-                modified_list.append(token)
-        
-        except:
-            prob_sum += prediction[token_list[idx]]
-            modified_list.append(token_list[idx])
-
-        for token in modified_list:
-            if token in frozen_list:
-                frozen_list.remove(token)
-                frozen_prob -= prediction[token]
-
-        rest_prob = 1-prob_sum-frozen_prob
-        old_prob = prob_sum
-
-        if d==0:
-            prob_sum = (1-frozen_prob)*int(prob_sum!=0)
-        elif d==1:
-            prob_sum = int(prob_sum==1)
-        else:
-            prob_sum = (1-frozen_prob)*prob_sum**math.tan(math.pi*d/2)
-
-        for token in modified_list:
-            prediction[token] = prob_sum*(prediction[token]/old_prob)
-
-        for p_idx in range(len(prediction)):
-            if (p_idx not in modified_list) and (p_idx not in frozen_list):
-                prediction[p_idx] += (old_prob-prob_sum)*(prediction[p_idx]/rest_prob)
-        
-        for p_idx in range(len(prediction)):
-            if not (0<=prediction[p_idx] and prediction[p_idx]<=1):
-                prediction[p_idx] = 0
-        
-        pred_sum = prediction.sum()
-
-        if pred_sum!=1:
-            for p_idx in range(len(prediction)):
-                prediction[p_idx] = prediction[p_idx]/pred_sum
-
-    return np.argmax(prediction)
+    for idx, n in enumerate(chord_vec):
+        if n==0:
+            continue
+        k = 0
+        while k*12+idx<128:
+            chord_notes.append(k*12+idx)
+            k += 1
+    
+    return chord_notes
 
 
-def chorale_generator(input_melody, input_beat, input_fermata, input_chord, model, seg_length=SEGMENT_LENGTH, polyphonicity=POLYPHONICITY, harmonicity=HARMONICITY):
+def chorale_generator(input_melody, input_beat, input_fermata, input_chord, model, seg_length=SEGMENT_LENGTH, chord_gamma=1-HARMONICITY):
     
     # Padding sequences
-    missed_num = seg_length-len(input_melody)%seg_length
-
-    if missed_num!=seg_length:
-
-        song_melody = input_melody+[0]*missed_num
-        song_beat = input_beat+[0]*missed_num
-        song_beat = to_categorical(song_beat, num_classes=4).tolist()
-        song_fermata = input_fermata+[0]*missed_num
-        song_chord = input_chord+[[0]*12]*missed_num
+    song_melody = seg_length*[0] + input_melody + seg_length*[0]
+    song_beat = seg_length*[0] + input_beat + seg_length*[0]
+    song_fermata = seg_length*[0] + input_fermata + seg_length*[0]
+    song_chord = seg_length*[[0.]*12] + input_chord + seg_length*[[0.]*12]
+    song_alto = seg_length*[0]
+    song_tenor = seg_length*[0]
+    song_bass = seg_length*[0]
     
-    else:
+    for idx in range(seg_length, len(song_melody)-seg_length):
 
-        song_melody = input_melody
-        song_beat = input_beat
-        song_beat = to_categorical(song_beat, num_classes=4).tolist()
-        song_fermata = input_fermata
-        song_chord = input_chord
-    
-    song_condition = [[float(song_fermata[n_idx])]+song_beat[n_idx]+song_chord[n_idx] for n_idx in range(len(song_melody))]
-    song_condition = np.array(song_condition).reshape(int(len(song_condition)/seg_length), seg_length, 17)
-    song_melody = to_categorical(song_melody, num_classes=131).reshape(int(len(song_melody)/seg_length), seg_length, 131)
+        melody_left = song_melody[idx-seg_length: idx]
+        melody_right = song_melody[idx: idx+seg_length][::-1]
+        beat_left = song_beat[idx-seg_length: idx]
+        beat_right = song_beat[idx: idx+seg_length][::-1]
+        fermata_left = song_fermata[idx-seg_length: idx]
+        fermata_right = song_fermata[idx: idx+seg_length][::-1]
+        chord_left = song_chord[idx-seg_length: idx]
+        chord_right = song_chord[idx: idx+seg_length][::-1]
+        alto = song_alto[idx-seg_length: idx]
+        tenor = song_tenor[idx-seg_length: idx]
+        bass = song_bass[idx-seg_length: idx]
+
+        # one-hot
+        melody_left = to_categorical(melody_left, num_classes=130)
+        melody_right = to_categorical(melody_right, num_classes=130)
+        beat_left = to_categorical(beat_left, num_classes=4)
+        beat_right = to_categorical(beat_right, num_classes=4)
+        fermata_left = to_categorical(fermata_left, num_classes=2)
+        fermata_right = to_categorical(fermata_right, num_classes=2)
+        alto = to_categorical(alto, num_classes=130)
+        tenor = to_categorical(tenor, num_classes=130)
+        bass = to_categorical(bass, num_classes=130)
         
-    # Predict the rest three parts
-    net_output = np.array(model.predict(x=[song_condition, song_melody]))
-    net_output = net_output.reshape(3, net_output.shape[1]*net_output.shape[2], 131)
-    new_output = []
-    
-    # Sample each part
-    for part_output in net_output:
+        # concat beat, fermata and chord
+        condition_left = np.concatenate((beat_left, fermata_left, chord_left), axis=-1)
+        condition_right = np.concatenate((beat_right, fermata_right, chord_right), axis=-1)
 
-        new_part_output = []
+        # expand one dimension
+        melody_left = np.expand_dims(melody_left, axis=0)
+        melody_right = np.expand_dims(melody_right, axis=0)
+        condition_left = np.expand_dims(condition_left, axis=0)
+        condition_right = np.expand_dims(condition_right, axis=0)
+        alto = np.expand_dims(alto, axis=0)
+        tenor = np.expand_dims(tenor, axis=0)
+        bass = np.expand_dims(bass, axis=0)
 
-        # Sample each time step
-        for idx, prob in enumerate(part_output):
+        # predict
+        predictions = model.predict([melody_left, melody_right, condition_left, condition_right, alto, tenor, bass])
+        result = []
+        pre_notes = [129, 129, 129]
+        if song_melody[idx]!=129:
+            melody_pre_note = song_melody[idx]
 
-            # Find all chord tones
-            note_list = []
-
-            for n_idx, n in enumerate(song_chord[idx]):
-                if n==1:
-                    for group_num in range(11):
-                        n_pitch = 1+n_idx+(group_num*12)
-                        if n_pitch<=128:
-                            note_list.append(n_pitch)
-                        else:
-                            break
+        for p_idx, prediction in enumerate(predictions):
             
-            # Rest
-            if len(note_list)==0 or input_melody[min(idx, len(input_melody)-1)]==129:
-                new_part_output.append(sample(prob, [129, 130], 0))
-                continue
+            prediction = prediction[0]
+            chord_notes = get_chord_notes(song_chord[idx])
 
-            # Set density based on polyphonicity
-            if input_beat[min(idx, len(input_beat)-1)]==3:
-                d = 1
+            if song_melody[idx]==128 or melody_pre_note==128 or len(chord_notes)==0:
+                prediction = gamma_sampling(prediction, [[128, 129]], [0], return_probs=True)
             
-            elif input_melody[min(idx, len(input_melody)-1)]!=130:
-                d = 1-polyphonicity
-
             else:
-                d = polyphonicity
+                if pre_notes[p_idx] in chord_notes:
+                    prediction = gamma_sampling(prediction, [[128, 129], chord_notes+[129]], [0.5, chord_gamma], return_probs=True)
 
-            new_part_output.append(sample(prob, [130, note_list], [d, 1-harmonicity]))
+                else:
+                    prediction = gamma_sampling(prediction, [[128, 129], chord_notes], [0.5, chord_gamma], return_probs=True)
+
+                if song_beat[idx]==3:
+                    predictions = gamma_sampling(prediction, [[129]], [1], return_probs=True)
+            
+            result.append(np.argmax(prediction))
+
+        song_alto.append(result[0])
+        song_tenor.append(result[1])
+        song_bass.append(result[2])
         
-        new_output.append(new_part_output)
+        if result[0]!=129:
+            pre_notes[0] = result[0]
+        if result[1]!=129:
+            pre_notes[1] = result[1]
+        if result[2]!=129:
+            pre_notes[2] = result[2]
 
     # Remove padding
-    if missed_num!=seg_length:
-        for part_idx in range(3):
-            new_output[part_idx] = new_output[part_idx][:-missed_num]
-    
-    return new_output
+    song_alto = song_alto[seg_length:]
+    song_tenor = song_tenor[seg_length:]
+    song_bass = song_bass[seg_length:]
+
+    return [song_alto, song_tenor, song_bass]
 
 
 def txt2music(txt, fermata_txt, gap, ks_list, ts_list):
@@ -166,25 +139,27 @@ def txt2music(txt, fermata_txt, gap, ks_list, ts_list):
     ks_cnt = ts_cnt = 1
 
     # Decode text sequences
-    for element in txt+[131]:
+    for element in txt+[130]:
         
-        if element!=130:
+        if element!=129:
 
             # Create new note
             if pre_element!=None:
 
                 # If is note
-                if pre_element<129:
-
-                    new_note = note.Note(pre_element-1+corrected_gap)
+                if pre_element<128:
+                    new_note = note.Note(pre_element+corrected_gap)
 
                 # If is rest
-                elif pre_element==129:
-
+                elif pre_element==128:
                     new_note = note.Rest()
                 
-                if fermata_txt[int(offset/0.25)]==1:
+                if fermata_txt[int(offset/0.25)]==1 and last_note_is_fermata==False:
                     new_note.expressions.append(expressions.Fermata())
+                    last_note_is_fermata = True
+                
+                elif fermata_txt[int(offset/0.25)]!=1:
+                    last_note_is_fermata = False
 
                 new_note.quarterLength = duration
                 new_note.offset = offset
@@ -215,6 +190,7 @@ def export_music(melody, chorale_list, fermata_txt, gap, filename):
 
     ks_list = []
     ts_list = []
+    filename = '.'.join(filename.split('.')[:-1])
 
     # Get meta information
     for element in melody.flat:
@@ -238,26 +214,26 @@ def export_music(melody, chorale_list, fermata_txt, gap, filename):
 
     if WATER_MARK:
         meta = metadata.Metadata()
-        meta.title = filename.split('.')[-2]
+        meta.title = filename
         meta.composer = "Choralized by DeepChoir"
         new_score.insert(0,meta)
         
-    new_score.write('mxl', fp=OUTPUTS_PATH+'/'+filename.split('.')[-2]+'.mxl')
+    new_score.write('mxl', fp=OUTPUTS_PATH+'/'+filename+'.mxl')
 
 
 if __name__ == '__main__':
     
     # Load model
-    model = build_model(weights_path=WEIGHTS_PATH)
+    model = build_model(weights_path=WEIGHTS_PATH, training=False)
     melody_data, beat_data, fermata_data, chord_data, melodies, gaps, scores_len_list, filenames = chorale_loader(path=INPUTS_PATH)
 
     start_idx = 0
     end_idx = 0
 
     # Process each score
-    for idx, scores_len in enumerate(scores_len_list):
+    for idx in trange(len(scores_len_list)):
 
-        end_idx += scores_len
+        end_idx += scores_len_list[idx]
         chorale_list = []
         fermata_txt = []
 
