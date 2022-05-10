@@ -36,7 +36,7 @@ Keras: 2.3.0
 tensorflow-gpu: 2.2.0  
 music21: 6.7.1  
 tqdm: 4.62.3  
-samplings: 0.15
+samplings: 0.1.5
   
 PS: Third party libraries can be installed using the `pip install` command.
 
