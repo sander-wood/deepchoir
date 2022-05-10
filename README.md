@@ -10,6 +10,8 @@ The generated samples (chorales, folk songs and a symphony) are in the `samples`
 
 For more information, see our paper: [arXiv paper](https://arxiv.org/abs/2202.08423).  
   
+We have updated the code for DeepChoir and the current version has a higher quality of generation overall than the original. The paper will be updated around mid-2022.  
+  
 ## Chordified JSB Chorales Dataset
 
 Since the original JSB Chorales Dataset has no chord progressions and the workload of carrying out harmonic analysis manually is too large, we perform the following automated pre-processing to add chord symbols.  
@@ -34,6 +36,7 @@ Keras: 2.3.0
 tensorflow-gpu: 2.2.0  
 music21: 6.7.1  
 tqdm: 4.62.3  
+samplings: 0.15
   
 PS: Third party libraries can be installed using the `pip install` command.
 
@@ -42,7 +45,7 @@ PS: Third party libraries can be installed using the `pip install` command.
 2.　Simply run `choralizer.py`;  
 3.　Wait a while and the choralized melodies will be saved in the `outputs` folder.  
   
-You can set two parameters HARMONICITY∈(0, 1) and POLYPHONICITY∈(0, 1) in `config.py` to adjust two attributes of the generated chorales.  
+You can set two parameters HARMONICITY∈[0, 1] in `config.py` to adjust two attributes of the generated chorales.  
   
 The higher the value of HARMONICITY, the generated three parts are more in harmony with the melody.  
   
