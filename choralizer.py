@@ -4,7 +4,7 @@ from config import *
 from music21 import *
 from tqdm import trange
 from model import build_model
-from loader import chorale_loader
+from loader import get_filenames, convert_files
 from samplings import gamma_sampling
 from tensorflow.python.keras.utils.np_utils import to_categorical
 
@@ -26,7 +26,7 @@ def get_chord_notes(chord_vec):
     return chord_notes
 
 
-def chorale_generator(input_melody, input_beat, input_fermata, input_chord, model, seg_length=SEGMENT_LENGTH, chord_gamma=1-HARMONICITY):
+def chorale_generator(input_melody, input_beat, input_fermata, input_chord, model, gap, seg_length=SEGMENT_LENGTH, chord_gamma=1-HARMONICITY):
     
     # Padding sequences
     song_melody = seg_length*[0] + input_melody + seg_length*[0]
@@ -79,6 +79,7 @@ def chorale_generator(input_melody, input_beat, input_fermata, input_chord, mode
         predictions = model.predict([melody_left, melody_right, condition_left, condition_right, alto, tenor, bass])
         result = []
         pre_notes = [129, 129, 129]
+        
         if song_melody[idx]!=129:
             melody_pre_note = song_melody[idx]
 
@@ -92,10 +93,9 @@ def chorale_generator(input_melody, input_beat, input_fermata, input_chord, mode
             
             else:
                 if pre_notes[p_idx] in chord_notes:
-                    prediction = gamma_sampling(prediction, [[128, 129], chord_notes+[129]], [0.5, chord_gamma], return_probs=True)
-
-                else:
-                    prediction = gamma_sampling(prediction, [[128, 129], chord_notes], [0.5, chord_gamma], return_probs=True)
+                    chord_notes = chord_notes+[129]
+                    
+                prediction = gamma_sampling(prediction, [[128, 129], chord_notes], [0.5, chord_gamma], return_probs=True)
 
                 if song_beat[idx]==3:
                     predictions = gamma_sampling(prediction, [[129]], [1], return_probs=True)
@@ -114,14 +114,18 @@ def chorale_generator(input_melody, input_beat, input_fermata, input_chord, mode
             pre_notes[2] = result[2]
 
     # Remove padding
-    song_alto = song_alto[seg_length:]
-    song_tenor = song_tenor[seg_length:]
-    song_bass = song_bass[seg_length:]
+    song_alto = np.array(song_alto[seg_length:])
+    song_tenor = np.array(song_tenor[seg_length:])
+    song_bass = np.array(song_bass[seg_length:])
 
-    return [song_alto, song_tenor, song_bass]
+    song_alto = np.where(song_alto<128, song_alto-gap, song_alto)
+    song_tenor = np.where(song_tenor<128, song_tenor-gap, song_tenor)
+    song_bass = np.where(song_bass<128, song_bass-gap, song_bass)
+
+    return [song_alto.tolist(), song_tenor.tolist(), song_bass.tolist()]
 
 
-def txt2music(txt, fermata_txt, gap, ks_list, ts_list):
+def txt2music(txt, fermata_txt, ks_list, ts_list):
 
     if len(ts_list)==0:
         ts_list = [meter.TimeSignature('c')]
@@ -134,7 +138,6 @@ def txt2music(txt, fermata_txt, gap, ks_list, ts_list):
     pre_element = None
     duration = 0.0
     offset = 0.0
-    corrected_gap = -1*(gap.semitones)
 
     ks_cnt = ts_cnt = 1
 
@@ -148,7 +151,7 @@ def txt2music(txt, fermata_txt, gap, ks_list, ts_list):
 
                 # If is note
                 if pre_element<128:
-                    new_note = note.Note(pre_element+corrected_gap)
+                    new_note = note.Note(pre_element)
 
                 # If is rest
                 elif pre_element==128:
@@ -186,10 +189,11 @@ def txt2music(txt, fermata_txt, gap, ks_list, ts_list):
     return notes
 
 
-def export_music(melody, chorale_list, fermata_txt, gap, filename):
+def export_music(melody, chorale_list, fermata_txt, filename):
 
     ks_list = []
     ts_list = []
+    filename = os.path.basename(filename)
     filename = '.'.join(filename.split('.')[:-1])
 
     # Get meta information
@@ -202,10 +206,10 @@ def export_music(melody, chorale_list, fermata_txt, gap, filename):
             ks_list.append(element)
 
     # Compose four parts
-    new_score = [melody.parts[0]]
+    new_score = [melody]
 
     for i in range(3):
-        new_part = stream.Part(txt2music(chorale_list[i], fermata_txt, gap, ks_list, ts_list))
+        new_part = stream.Part(txt2music(chorale_list[i], fermata_txt, ks_list, ts_list))
         new_part = new_part.transpose(interval.Interval(0))
         new_score.append(new_part)
 
@@ -225,23 +229,29 @@ if __name__ == '__main__':
     
     # Load model
     model = build_model(weights_path=WEIGHTS_PATH, training=False)
-    melody_data, beat_data, fermata_data, chord_data, melodies, gaps, scores_len_list, filenames = chorale_loader(path=INPUTS_PATH)
-
-    start_idx = 0
-    end_idx = 0
+    filenames = get_filenames(INPUTS_PATH)
+    data_corpus = convert_files(filenames, fromDataset=False)
 
     # Process each score
-    for idx in trange(len(scores_len_list)):
+    for idx in trange(len(data_corpus)):
 
-        end_idx += scores_len_list[idx]
         chorale_list = []
         fermata_txt = []
+        song_data = data_corpus[idx]
+        melody_score = song_data[4]
+        filename = song_data[6]
 
-        for sub_idx, input_melody in enumerate(melody_data[start_idx: end_idx]):
-            chorale_list += chorale_generator(input_melody, beat_data[start_idx+sub_idx], fermata_data[start_idx+sub_idx], chord_data[start_idx+sub_idx], model)
-            fermata_txt += fermata_data[start_idx+sub_idx]
+        for part_idx in range(len(song_data[0])):
+            input_melody = song_data[0][part_idx]
+            input_beat = song_data[1][part_idx]
+            input_fermata = song_data[2][part_idx]
+            input_chord = song_data[3][part_idx]
+            gap = song_data[5][part_idx]
+            fermata_txt += input_fermata
+            chorale_list.append(chorale_generator(input_melody, input_beat, input_fermata, input_chord, model, gap))
         
-        export_music(melodies[idx], chorale_list, fermata_txt, gaps[idx], filenames[idx])
+        alto_list = [n for chorale in chorale_list for n in chorale[0]]
+        tenor_list = [n for chorale in chorale_list for n in chorale[1]]
+        bass_list = [n for chorale in chorale_list for n in chorale[2]]
 
-        start_idx = end_idx
-      
+        export_music(melody_score, [alto_list, tenor_list, bass_list], fermata_txt, filename)
