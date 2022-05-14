@@ -1,6 +1,6 @@
 # DeepChoir
 
-## Chord-Conditioned Melody Choralization with Controllable Harmonicity and Polyphonicity
+## Chord-Conditioned Melody Choralization with Controllable Harmonicity
 
 This is the source code of DeepChoir, a melody choralization system, which can generate a four-part chorale for a given melody conditioned on a chord progression, trained/validated on Chordified JSB Chorales Dataset.  
   
