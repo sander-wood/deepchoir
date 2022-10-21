@@ -33,7 +33,7 @@ Like most melody harmonization systems trained on JSB Chorales, DeepChoir can re
 <center>DeepChoir-reharmonized BWV 62.6 (h=1.0)</center>
 <br>
 
-# Folk Song
+# Folk Music
 With chord conditioning and controllable harmonicity, DeepChoir is capable of generating music that is different from the typical Bach style. The melody and chord progression below are taken from the **Sí Bheag, Sí Mhór**, a traditional Irish Celtic music.
 
 <br>
