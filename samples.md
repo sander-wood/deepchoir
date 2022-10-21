@@ -41,7 +41,7 @@ With chord conditioning and controllable harmonicity, DeepChoir is capable of ge
 <center>Melody and Chords of Sí Bheag, Sí Mhór (Input)</center>
 <br>
 <audio id="audio_10" src="samples/folk/Sí_Bheag,_Sí_Mhór_(h=0.7).mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center>DeepChoir-harmonized Sí Bheag, Sí Mhór Melody and Chords (h=0.7)</center>
+<center>DeepChoir-harmonized Sí Bheag, Sí Mhór (h=0.7)</center>
 <br>
 
 # Pop Song
