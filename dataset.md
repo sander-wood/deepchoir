@@ -22,7 +22,7 @@ As we did not find any full JSB Chorales dataset with human-annotated chord symb
 
 We ended up with a total of 366 chorales for training (90\%) and validation (10\%). Admittedly, these automatically labelled chord symbols are not authoritative from the perspective of harmonic analysis, but they are sufficient for our task.
 
-You can find this chordified version of JSB Chorales dataset in [DeepChoir repo](https://github.com/sander-wood/deepchoir)
+You can find this chordified version of JSB Chorales dataset in [DeepChoir repo](https://github.com/sander-wood/deepchoir).
 
 <center><img src="figs/070.png" alt="p1" style="zoom:120%"></center>
 <center>Chordified BWV 322 exported in MuseScore3.</center>
