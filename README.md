@@ -40,7 +40,7 @@ PS: Third party libraries can be installed using the `pip install` command.
 ## Melody Harmonization
 1.　Put the melodies with chord symbols (in the format of .musicxml, .xml or .mxl) in the `inputs` folder;  
 2.　Simply run `choralizer.py`;  
-3.　Wait a while and the choralized melodies will be saved in the `outputs` folder.  
+3.　Wait a while and the harmonized melodies will be exported in the `outputs` folder.  
   
 You can set two parameters HARMONICITY∈[0, 1] in `config.py` to adjust two attributes of the generated chorales.  
   
