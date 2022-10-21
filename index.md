@@ -23,4 +23,4 @@ Figure 1: The process of melody harmonization. Here, the alto, tenor, and bass a
 
 Our goal is to provide an assistive compositional tool that can help users easily compose chorales. We first automatically labelled chord symbols for JSB Chorales, and encoded chords as chromagrams. We then added beat information into our music representation to make the system aware of time signatures. Furthermore, we applied [gamma sampling](https://arxiv.org/pdf/2205.06036.pdf), a sampling method for controlling language models, to achieve controllable harmonicity in the melody harmonization task, enabling users to steer the extent to which the system follows a given chord progression.
 
-For more information, see our paper: [arXiv paper](https://arxiv.org/pdf/2202.08423.pdf) and [GitHub repo](https://github.com/sander-wood/deepchoir).
+For more information, see our [arXiv paper](https://arxiv.org/pdf/2202.08423.pdf) and [GitHub repo](https://github.com/sander-wood/deepchoir).
