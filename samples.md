@@ -15,22 +15,22 @@ Like most melody harmonization systems trained on JSB Chorales, DeepChoir can re
 <center>BWV 62.6 (Ground Truth)</center>
 <br>
 <audio id="audio_3" src="samples/chorale/BWV_62.6_(h=0.5).mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center>DeepChoir-generated BWV 62.6 (h=0.5)</center>
+<center>DeepChoir-reharmonized BWV 62.6 (h=0.5)</center>
 <br>
 <audio id="audio_4" src="samples/chorale/BWV_62.6_(h=0.6).mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center>DeepChoir-generated BWV 62.6 (h=0.6)</center>
+<center>DeepChoir-reharmonized BWV 62.6 (h=0.6)</center>
 <br>
 <audio id="audio_5" src="samples/chorale/BWV_62.6_(h=0.7).mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center>DeepChoir-generated BWV 62.6 (h=0.7)</center>
+<center>DeepChoir-reharmonized BWV 62.6 (h=0.7)</center>
 <br>
 <audio id="audio_6" src="samples/chorale/BWV_62.6_(h=0.8).mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center>DeepChoir-generated BWV 62.6 (h=0.8)</center>
+<center>DeepChoir-reharmonized BWV 62.6 (h=0.8)</center>
 <br>
 <audio id="audio_7" src="samples/chorale/BWV_62.6_(h=0.9).mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center>DeepChoir-generated BWV 62.6 (h=0.9)</center>
+<center>DeepChoir-reharmonized BWV 62.6 (h=0.9)</center>
 <br>
 <audio id="audio_8" src="samples/chorale/BWV_62.6_(h=1.0).mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center>DeepChoir-generated BWV 62.6 (h=1.0)</center>
+<center>DeepChoir-reharmonized BWV 62.6 (h=1.0)</center>
 <br>
 
 # Folk Song
@@ -71,5 +71,3 @@ This music is created as follows. We first chordify the piano accompaniment part
 <audio id="audio_14" src="samples/symphony/AI_Maria_(co-composed).mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
 <center>AI Maria (Co-composed)</center>
 <br>
-
-  
