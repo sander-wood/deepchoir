@@ -182,7 +182,7 @@ def melody_reader(melody_part, gap):
             element = element.transpose(gap)
             chord_token = [0.]*12
             for n in element.pitches:
-                chord_token[n.midi%12] = 1.
+                chord_token[n.midi%12] += 1.
             continue
 
         # Read the current time signature
@@ -192,6 +192,9 @@ def melody_reader(melody_part, gap):
             continue
 
         else:
+            continue
+        
+        if element.quarterLength==0:
             continue
         
         melody_txt += [token]+[129]*(int(element.quarterLength*4)-1)
@@ -237,6 +240,9 @@ def melody_reader(melody_part, gap):
 
     if missed_beat!=0:
         beat_txt += beat_sequence[:missed_beat]
+    
+    if len(melody_txt)!=len(beat_txt) or len(beat_txt)!=len(fermata_txt) or len(fermata_txt)!=len(chord_txt):
+        print('Warning')
 
     return melody_txt, beat_txt, fermata_txt, chord_txt
 
@@ -253,7 +259,6 @@ def convert_files(filenames, fromDataset=True):
     alto= []
     tenor = []
     bass = []
-    gaps = []
 
     for filename_idx in trange(len(filenames)):
 
@@ -280,7 +285,6 @@ def convert_files(filenames, fromDataset=True):
                 
             part = quant_score(part)
             splited_score, gap_list = split_by_key(part)
-            gaps.append(gap_list)
 
             if idx==0:
 
@@ -293,6 +297,9 @@ def convert_files(filenames, fromDataset=True):
                     soprano_beat.append(beat_txt)
                     soprano_fermata.append(fermata_txt)
                     soprano_chord.append(chord_txt)
+                
+                if not fromDataset:
+                    break
 
             else:
 
@@ -316,7 +323,7 @@ def convert_files(filenames, fromDataset=True):
         #     continue
 
         if not fromDataset:
-            data_corpus.append([soprano_melody, soprano_beat, soprano_fermata, soprano_chord, original_score, gaps, filename])  
+            data_corpus.append([soprano_melody, soprano_beat, soprano_fermata, soprano_chord, original_score, gap_list, filename])  
 
     if fromDataset:
         data_corpus =  [[soprano_melody, soprano_beat, soprano_fermata, soprano_chord], alto, tenor, bass, filenames]

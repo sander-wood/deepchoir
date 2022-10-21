@@ -11,22 +11,22 @@ from tensorflow.python.keras.utils.np_utils import to_categorical
 # use cpu
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-def get_chord_notes(chord_vec):
+def get_chord_tones(chord_vec):
     
-    chord_notes = []
+    chord_tones = []
 
     for idx, n in enumerate(chord_vec):
         if n==0:
             continue
         k = 0
         while k*12+idx<128:
-            chord_notes.append(k*12+idx)
+            chord_tones.append(k*12+idx)
             k += 1
     
-    return chord_notes
+    return chord_tones
 
 
-def chorale_generator(input_melody, input_beat, input_fermata, input_chord, model, gap, seg_length=SEGMENT_LENGTH, chord_gamma=1-HARMONICITY):
+def chorale_generator(input_melody, input_beat, input_fermata, input_chord, model, gap, seg_length=SEGMENT_LENGTH, chord_gamma=1-HARMONICITY, onset_gamma=HOMOPHONICITY):
     
     # Padding sequences
     song_melody = seg_length*[0] + input_melody + seg_length*[0]
@@ -86,18 +86,25 @@ def chorale_generator(input_melody, input_beat, input_fermata, input_chord, mode
         for p_idx, prediction in enumerate(predictions):
             
             prediction = prediction[0]
-            chord_notes = get_chord_notes(song_chord[idx])
+            
+            if song_melody[idx]==129:
+                prediction = gamma_sampling(prediction, [[129]], [1-onset_gamma], return_probs=True)
+            
+            else:
+                prediction = gamma_sampling(prediction, [[129]], [onset_gamma], return_probs=True)
 
-            if song_melody[idx]==128 or melody_pre_note==128 or len(chord_notes)==0:
+            chord_tones = get_chord_tones(song_chord[idx])
+
+            if song_melody[idx]==128 or melody_pre_note==128 or len(chord_tones)==0:
                 prediction = gamma_sampling(prediction, [[128, 129]], [0], return_probs=True)
             
             else:
-                if pre_notes[p_idx] in chord_notes:
-                    chord_notes = chord_notes+[129]
+                if pre_notes[p_idx] in chord_tones:
+                    chord_tones = chord_tones+[129]
                     
-                prediction = gamma_sampling(prediction, [[128, 129], chord_notes], [0.5, chord_gamma], return_probs=True)
+                prediction = gamma_sampling(prediction, [[128, 129], chord_tones], [0.5, chord_gamma], return_probs=True)
 
-                if song_beat[idx]==3:
+                if song_beat[idx]==3 and song_melody[idx]!=129:
                     predictions = gamma_sampling(prediction, [[129]], [1], return_probs=True)
             
             result.append(np.argmax(prediction))
@@ -189,10 +196,11 @@ def txt2music(txt, fermata_txt, ks_list, ts_list):
     return notes
 
 
-def export_music(melody, chorale_list, fermata_txt, filename):
+def export_music(melody, chorale_list, fermata_txt, filename, keep_chord=KEEP_CHORD):
 
     ks_list = []
     ts_list = []
+    new_melody = []
     filename = os.path.basename(filename)
     filename = '.'.join(filename.split('.')[:-1])
 
@@ -205,8 +213,15 @@ def export_music(melody, chorale_list, fermata_txt, filename):
         if isinstance(element, key.KeySignature):
             ks_list.append(element)
 
+        if not isinstance(element, harmony.ChordSymbol):
+            new_melody.append(element)
+
     # Compose four parts
-    new_score = [melody]
+    if keep_chord:
+        new_score = [melody]
+    
+    else:
+        new_score = [stream.Part(new_melody)]
 
     for i in range(3):
         new_part = stream.Part(txt2music(chorale_list[i], fermata_txt, ks_list, ts_list))
