@@ -2,7 +2,7 @@
 
 ## Chord-Conditioned Melody Harmonization with Controllable Harmonicity
 
-This is the source code of DeepChoir, a melody choralization system, which can generate a four-part chorale for a given melody conditioned on a chord progression, trained/validated on Chordified JSB Chorales Dataset.  
+This is the source code of DeepChoir, a chord-conditioned melody harmonization system with controllable harmonicity, trained/validated on Chordified JSB Chorales Dataset.  
   
 The evaluation data we used in our experiments in the `outputs` folder, and the online discrimination test is available at https://sander-wood.github.io/deepchoir/test.  
 
@@ -37,7 +37,7 @@ samplings: 0.1.6
   
 PS: Third party libraries can be installed using the `pip install` command.
 
-## Melody Choralization
+## Melody Harmonization
 1.　Put the melodies with chord symbols (in the format of .musicxml, .xml or .mxl) in the `inputs` folder;  
 2.　Simply run `choralizer.py`;  
 3.　Wait a while and the choralized melodies will be saved in the `outputs` folder.  
