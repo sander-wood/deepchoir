@@ -13,14 +13,14 @@ title: Dataset
     });
 </script>
 
-# Chordified JSB  Chorales  Dataset 
-Since the original JSB Chorales Dataset has no chord progressions and the workload of carrying out harmonic analysis manually is too large, we perform the following automated pre-processing to add chord symbols.  
-  
-1.　**Flattening**: all repeat barlines are removed by flattening each score to make them more machine-readable.  
-2.　**Chordify**: a tool in [music21](https://web.mit.edu/music21/doc/usersGuide/usersGuide_09_chordify.html?highlight=chordify) for simplifying a complex score with multiple parts into a succession of chords in one part.  
-3.　**Labelling**: we first move all the chords to the closed position, and then label the chordified chords as chord symbols. Finally, all chord symbols on beats of the soprano part are kept.  
+## Chordified JSB Chorales Dataset
 
-After removing a few scores that cannot be properly chordified, we ended up with a total of 366 chorales for training (90%) and validation (10%).  
+As we did not find any full JSB Chorales dataset with human-annotated chord symbols, and as performing harmonic analysis manually is too time-consuming, we carried out the following automated preprocessing.
+  
+1.　**Chordifying**: simplify a complex score with multiple voices into a succession of chords in one voice via a tool in [music21](https://web.mit.edu/music21/doc/usersGuide/usersGuide_09_chordify.html?highlight=chordify).  
+2.　**Labelling**: rank all chords based on beat strength, then only keep those with the highest scores and add them to sopranos.
+
+We ended up with a total of 366 chorales for training (90\%) and validation (10\%). Admittedly, these automatically labelled chord symbols are not authoritative from the perspective of harmonic analysis, but they are sufficient for our task.
 
 You can find this chordified version of JSB Chorales dataset in [DeepChoir](https://github.com/sander-wood/deepchoir)
 
