@@ -25,5 +25,5 @@ We ended up with a total of 366 chorales for training (90\%) and validation (10\
 You can find this chordified version of JSB Chorales dataset in [DeepChoir repo](https://github.com/sander-wood/deepchoir).
 
 <center><img src="figs/070.png" alt="p1" style="zoom:120%"></center>
-<center>Chordified BWV 322 exported in MuseScore3.</center>
+<center>Chordified BWV 322 rendered by MuseScore3.</center>
 <br>
