@@ -6,7 +6,7 @@ This is the source code of DeepChoir, a chord-conditioned melody harmonization s
   
 The evaluation data we used in our experiments in the `outputs` folder, and the online discrimination test is available at https://sander-wood.github.io/deepchoir/test.  
 
-You can listening generated samples (chorales, folk songs and a symphony) at https://sander-wood.github.io/deepchoir/samples.  
+You can listening generated samples (chorale, folk song, pop song, and symphony) at https://sander-wood.github.io/deepchoir/samples.  
 
 For more information, see our paper: [arXiv paper](https://arxiv.org/abs/2202.08423).  
   
