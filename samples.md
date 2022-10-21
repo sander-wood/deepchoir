@@ -34,7 +34,7 @@ Like most melody harmonization systems trained on JSB Chorales, DeepChoir can re
 <br>
 
 # Folk Song
-With chord conditioning and the improved density sampling, DeepChoir is capable of generating music that is different from the typical Bach style. The first melody and chord progression below are taken from the **Sí Bheag, Sí Mhór**, a traditional Irish Celtic music.
+With chord conditioning and the gamma sampling, DeepChoir is capable of generating music that is different from the typical Bach style. The melody and chord progression below are taken from the **Sí Bheag, Sí Mhór**, a traditional Irish Celtic music.
 
 <br>
 <audio id="audio_9" src="samples/folk/Sí_Bheag,_Sí_Mhór_(input).mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
