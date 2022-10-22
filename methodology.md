@@ -19,7 +19,7 @@ As shown in Fig. 2b, our representation encodes each chorale into the following 
 
 <br>
 <center><img src="figs/fig2.png" alt="fig2" style="zoom:80%"></center>
-<center>Figure 2: For demonstration purposes, the time resolution of our proposed music representation is set to eighth notes.</center>
+Figure 2: For demonstration purposes, the time resolution of our proposed music representation is set to eighth notes.
 <br>
 
 **SATB Sequences**: encode each voice as a piano-roll consisting of 130-D one-hot vectors (128 pitches, 1 rest, and 1 hold), with a sixteenth note time resolution.
