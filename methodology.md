@@ -36,7 +36,7 @@ As shown in Fig. 2b, our representation encodes each chorale into the following 
 DeepChoir is a multi-headed autoregressive model with an encoder-decoder structure, as shown in Fig. 3. The two encoders use a stacked Bi-LSTM with a time-distributed dense layer, and the decoder uses a stacked dense layer.
 
 <br>
-<center><img src="figs/fig3.png" alt="fig3" style="zoom:60%"></center>
+<center><img src="figs/fig3.png" alt="fig3" style="zoom:50%"></center>
 <br>
 <center>Figure 3: The architecture of DeepChoir.</center>
 <br>
