@@ -13,6 +13,8 @@ title: Home
     });
 </script>
 
+## Chord-Conditioned Melody Harmonization with Controllable Harmonicity
+
 Melody harmonization has long been closely associated with chorales composed by Johann Sebastian Bach. Previous works rarely emphasised chorale generation conditioned on chord progressions, and there has been a lack of focus on assistive compositional tools. In this paper, we first designed a music representation that encoded chord symbols for chord conditioning, and then proposed DeepChoir, a melody harmonization system that can generate a four-part chorale for a given melody conditioned on a chord progression. With controllable harmonicity, users can control the extent of harmonicity for generated chorales. Experimental results reveal the effectiveness of the music representation and the controllability of DeepChoir.
 
 <br>
