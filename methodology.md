@@ -13,8 +13,6 @@ title: Methodology
     });
 </script>
 
-# Methodology
-
 ## Music Representation
 
 As shown in Fig. 2b, our representation encodes each chorale into the following seven sequences of the same length.
