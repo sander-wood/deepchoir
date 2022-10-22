@@ -13,7 +13,7 @@ title: Dataset
     });
 </script>
 
-## Chordified JSB Chorales Dataset
+# Chordified JSB Chorales Dataset
 
 As we did not find any full JSB Chorales dataset with human-annotated chord symbols, and as performing harmonic analysis manually is too time-consuming, we carried out the following automated preprocessing.
   
