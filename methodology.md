@@ -29,7 +29,7 @@ As shown in Fig. 2b, our representation encodes each chorale into the following 
 
 **Beat Sequence**: based on time signatures, encodes the beat information into 4-D one-hot vectors, which correspond to non-beat, weak, medium-weight, and strong beats (ranging from 0 to 3).
 
-**Chord Sequence**: encodes chords as chromagrams (12-D multi-hot vectors), and each dimension corresponds to an activated pitch class of a chord.
+**Chord Sequence**: encodes chords as chromagrams (12-D multi-hot vectors), and each dimension corresponds to an activated pitch class of a chord.  
 
 ## DeepChoir
 
