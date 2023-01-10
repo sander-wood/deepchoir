@@ -1,6 +1,4 @@
-# DeepChoir
-
-## Chord-Conditioned Melody Harmonization with Controllable Harmonicity
+# Chord-Conditioned Melody Harmonization with Controllable Harmonicity
 
 This is the source code of DeepChoir, a chord-conditioned melody harmonization system with controllable harmonicity, trained/validated on Chordified JSB Chorales Dataset.  
   
