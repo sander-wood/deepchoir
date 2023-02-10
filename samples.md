@@ -51,7 +51,7 @@ Here is the generated chorale based on **Hey Jude**, a song by the English rock 
 <center>Melody and Chords of Hey Jude (Input)</center>
 <br>
 <audio id="audio_12" src="samples/pop/Hey_Jude_(h=0.8).mp3" type="audio/mpeg" controls controlsList="nodownload">Your browser does not support the audio element.</audio>
-<center>DeepChoir-harmonized Hey Jude (h=0.8)</center>
+<center>DeepChoir-harmonized Hey Jude (h=0.8) with manually added drum track</center>
 <br>
 
 ## Symphony
