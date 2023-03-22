@@ -15,7 +15,7 @@ title: Methodology
 
 ## Music Representation
 
-As shown in Fig. 2b, our representation encodes each chorale into the following seven sequences of the same length.
+As shown in Fig. 2b, our symbolic representation encodes each chorale into the following 7 aligned sequences.
 
 <br>
 <center><img src="figs/fig2.png" alt="fig2" style="zoom:80%"></center>
@@ -28,7 +28,7 @@ Figure 2: For demonstration purposes, the time resolution of our proposed music 
 
 **Beat Sequence**: based on time signatures, encodes the beat information into 4-D one-hot vectors, which correspond to non-beat, weak, medium-weight, and strong beats (ranging from 0 to 3).
 
-**Chord Sequence**: encodes chords as chromagrams (12-D multi-hot vectors), and each dimension corresponds to an activated pitch class of a chord.  
+**Chord Sequence**: encodes chords as chromagrams (12-D multi-hot vectors), and each dimension corresponds to an activated pitch class of a chord.
 
 ## DeepChoir
 
@@ -49,12 +49,12 @@ Based on the assumption that some attributes of the generated text are closely r
 
 $$
 \begin{align}
-p^{\mathcal{A}}_{out}=&p_{in}^{\mathcal{A}tan(\frac{\pi \Gamma}{2})}, \\ 
-p^{a}_{out}=&p^{a}_{in}\cdot \frac{p^{\mathcal{A}}_{out}}{p^{\mathcal{A}}_{in}},\quad \forall a\in \mathcal{A}, \\ 
-p^{n}_{out}=&p^{n}_{in} \cdot (1 + \frac{p^{\mathcal{A}}_{in}-p^{\mathcal{A}}_{out}}{p^{\backslash \mathcal{A}}_{in}}),\quad \forall n\notin \mathcal{A},
+    p_{\mathcal{A}_{out}}&=p_{\mathcal{A}_{in}}^{tan(\frac{\pi \Gamma}{2})}, \\
+    p_{a_{out}}&=p_{a_{in}}\cdot \frac{p_{\mathcal{A}_{out}}}{p_{\mathcal{A}_{in}}},\quad \forall a\in \mathcal{A}, \\
+    p_{n_{out}}&= p_{n_{in}} \cdot (1 + \frac{p_{\mathcal{A}_{in}}-p_{\mathcal{A}_{out}}}{p_{\backslash \mathcal{A}_{in}}}),\quad \forall n\notin \mathcal{A},\\
 \end{align}
 $$
 
-where $\Gamma\in$[0,1] is the user-controllable parameter, $p_{in/out}$ is the input/output probability, $\mathcal{A}$ is the set of attribute-related tokens and $p^{\mathcal{A}}$ is the sum of their probabilities, while $p^{\backslash \mathcal{A}}$ is the sum of the probabilities of tokens that are not in $\mathcal{A}$. When $\Gamma=0.5$, there is \textbf{no change in the probability distribution}, while when $\Gamma<0.5$, the probabilities of the attribute-related tokens increase and vice versa.
+where $\Gamma\in[0,1]$ is the user-controllable control strength, $\mathcal{A}$ is the set of attribute-related tokens ($\mathcal{A}$ is its complement), $p_{a_{in/out}}$ is the input/out probability of an attribute-related token $a$, and the same goes for every non-attribute-related token $n$. When $\Gamma=0.5$, there is \textbf{no change in the probability distribution}, while when $\Gamma<0.5$, the probabilities of the attribute-related tokens increase and vice versa.
 
-Since harmonicity depends on the proportion of chord tones present in the melody (the larger the proportion, the more harmonious it is), we define chord tones as the attribute-related tokens for controllable harmonicity. To make the controllable harmonicity more intuitive, we set the harmonicity parameter $h=1-\Gamma$.
+Since harmonicity depends on the proportion of chord tones present in the music (the larger the proportion, the more harmonious it is), we define chord tones as the attribute-related tokens for controllable harmonicity. To make the controllable harmonicity more intuitive, we set the harmonicity parameter $h=1-\Gamma$.
