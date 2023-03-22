@@ -55,6 +55,6 @@ $$
 \end{align}
 $$
 
-where $\Gamma\in[0,1]$ is the user-controllable control strength, $\mathcal{A}$ is the set of attribute-related tokens ($\mathcal{A}$ is its complement), $p_{a_{in/out}}$ is the input/out probability of an attribute-related token $a$, and the same goes for every non-attribute-related token $n$. When $\Gamma=0.5$, there is \textbf{no change in the probability distribution}, while when $\Gamma<0.5$, the probabilities of the attribute-related tokens increase and vice versa.
+where $\Gamma\in[0,1]$ is the user-controllable control strength, $\mathcal{A}$ is the set of attribute-related tokens (${\backslash \mathcal{A}}$ is its complement), $p_{a_{in/out}}$ is the input/out probability of an attribute-related token $a$, and the same goes for every non-attribute-related token $n$. When $\Gamma=0.5$, there is \textbf{no change in the probability distribution}, while when $\Gamma<0.5$, the probabilities of the attribute-related tokens increase and vice versa.
 
 Since harmonicity depends on the proportion of chord tones present in the music (the larger the proportion, the more harmonious it is), we define chord tones as the attribute-related tokens for controllable harmonicity. To make the controllable harmonicity more intuitive, we set the harmonicity parameter $h=1-\Gamma$.
