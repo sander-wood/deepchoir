@@ -6,6 +6,8 @@ The evaluation data we used in our experiments in the `outputs` folder, and the 
 
 You can listening generated samples (chorale, folk, pop, and symphony) at https://sander-wood.github.io/deepchoir/samples.  
 
+In addition, we created an album, "Choirish", a collection of Irish folk music harmonized by DeepChoir. It is available at https://soundcloud.com/sander-wood/sets/choirish-a-collection-of-irish-folk-music-harmonized-by-deepchoir.
+
 For more information, see our paper: [arXiv paper](https://arxiv.org/abs/2202.08423).  
   
 ## Chordified JSB Chorales Dataset
